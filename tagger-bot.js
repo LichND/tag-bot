@@ -2,7 +2,8 @@
 
 const { Telegraf } = require('telegraf');
 const { message } = require('telegraf/filters');
-const database = require("./local-database")("./out/TaggerBot");
+const env = require("./env-reader");
+const database = require("./local-database")(env.DATABASE);
 
 /** @enum */
 const TAG_LIST = {
