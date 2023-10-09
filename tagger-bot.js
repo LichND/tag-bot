@@ -19,7 +19,7 @@ const TAG_LIST = {
 function addAtSymboll(text) {
     if (text == null || text.length == 0)
         return "";
-    return text.startsWith("@") ? text : "@" + text;
+    return (text.startsWith("@") ? text : "@" + text).toLowerCase();
 }
 
 class TaggerBot {
@@ -34,8 +34,6 @@ class TaggerBot {
         // this.instance.start(ctx => console.log("bot start!"));
 
         this.instance.on(message("text"), (ctx) => {
-            if (ctx.message.chat.type !== "group")
-                return;
             let group = ctx.message.chat.id;
             this.addUsersToMentionList(group, TAG_LIST.everyone, [ctx.message.from.username])
 
@@ -67,6 +65,7 @@ class TaggerBot {
             this.addUsersToMentionList(ctx.message.chat.id, TAG_LIST.everyone, ctx.message.new_chat_members.map(e => e.username))
         });
 
+        console.log("bot start");
         return this.instance.launch();
     }
 
